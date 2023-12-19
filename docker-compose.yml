@@ -5,8 +5,8 @@ services:
       - ./etc/nginx/conf.d:/etc/nginx/conf.d
       - ./public:/public
     ports:
-      - "80:80"
-    links:
+      - "20080:80"
+    depends_on:
       - app
 
   app:
@@ -19,7 +19,7 @@ services:
       ISUCONP_DB_PASSWORD: root
       ISUCONP_DB_NAME: isuconp
       ISUCONP_MEMCACHED_ADDRESS: memcached:11211
-    links:
+    depends_on:
       - mysql
       - memcached
     volumes:
@@ -42,7 +42,7 @@ services:
       - ./etc/my.cnf:/etc/my.cnf
       - ./sql:/docker-entrypoint-initdb.d
     ports:
-      - "3306:3306"
+      - "23306:3306"
     deploy:
       resources:
         limits:
